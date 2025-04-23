@@ -1,6 +1,4 @@
 import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import { invoke } from "@tauri-apps/api/core";
 import "./App.css";
 import Editor from '@monaco-editor/react'
 import ReactMarkdown from 'react-markdown'
@@ -9,6 +7,8 @@ import rehypeKatex from 'rehype-katex'
 import rehypeHighlight from 'rehype-highlight'
 import { MermaidRenderer } from './components/MermaidRenderer'
 import { FileManager } from './components/FileManager'
+import { ThemeProvider } from 'next-themes'
+import { ThemeToggle } from './components/ThemeToggle'
 import 'katex/dist/katex.min.css'
 import 'highlight.js/styles/github-dark.css'
 
@@ -42,14 +42,7 @@ $$x = {-b \\pm \\sqrt{b^2-4ac} \\over 2a}$$
 `;
 
 function App() {
-  const [greetMsg, setGreetMsg] = useState("");
-  const [name, setName] = useState("");
   const [markdown, setMarkdown] = useState(DEFAULT_MARKDOWN);
-
-  async function greet() {
-    // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
-    setGreetMsg(await invoke("greet", { name }));
-  }
 
   const components = {
     code({ node, inline, className, children, ...props }: any) {
@@ -69,37 +62,42 @@ function App() {
   };
 
   return (
-    <div className="flex flex-col h-screen bg-gray-100 dark:bg-gray-900">
-      <FileManager onFileLoad={setMarkdown} content={markdown} />
-      <div className="flex flex-1 overflow-hidden">
-        <div className="w-1/2 p-4">
-          <Editor
-            height="100%"
-            defaultLanguage="markdown"
-            value={markdown}
-            onChange={(value) => setMarkdown(value || '')}
-            theme="vs-dark"
-            options={{
-              minimap: { enabled: false },
-              fontSize: 14,
-              lineNumbers: 'on',
-              wordWrap: 'on',
-              automaticLayout: true,
-              scrollBeyondLastLine: false,
-            }}
-          />
+    <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+      <div className="flex flex-col h-screen bg-background text-foreground">
+        <div className="flex justify-between items-center p-2 border-b">
+          <FileManager onFileLoad={setMarkdown} content={markdown} />
+          <ThemeToggle />
         </div>
-        <div className="w-1/2 p-4 overflow-auto prose prose-invert max-w-none bg-gray-800">
-          <ReactMarkdown
-            remarkPlugins={[remarkGfm]}
-            rehypePlugins={[rehypeKatex, rehypeHighlight]}
-            components={components}
-          >
-            {markdown}
-          </ReactMarkdown>
+        <div className="flex flex-1 overflow-hidden">
+          <div className="w-1/2 p-4">
+            <Editor
+              height="100%"
+              defaultLanguage="markdown"
+              value={markdown}
+              onChange={(value) => setMarkdown(value || '')}
+              theme="vs-dark"
+              options={{
+                minimap: { enabled: false },
+                fontSize: 14,
+                lineNumbers: 'on',
+                wordWrap: 'on',
+                automaticLayout: true,
+                scrollBeyondLastLine: false,
+              }}
+            />
+          </div>
+          <div className="w-1/2 p-4 overflow-auto prose prose-invert max-w-none bg-muted">
+            <ReactMarkdown
+              remarkPlugins={[remarkGfm]}
+              rehypePlugins={[rehypeKatex, rehypeHighlight]}
+              components={components}
+            >
+              {markdown}
+            </ReactMarkdown>
+          </div>
         </div>
       </div>
-    </div>
+    </ThemeProvider>
   );
 }
 
