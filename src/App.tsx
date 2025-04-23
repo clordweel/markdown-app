@@ -9,6 +9,7 @@ import { MermaidRenderer } from './components/MermaidRenderer'
 import { FileManager } from './components/FileManager'
 import { ThemeProvider } from 'next-themes'
 import { ThemeToggle } from './components/ThemeToggle'
+import { ExportTools } from './components/ExportTools'
 import 'katex/dist/katex.min.css'
 import 'highlight.js/styles/github-dark.css'
 
@@ -66,7 +67,10 @@ function App() {
       <div className="flex flex-col h-screen bg-background text-foreground">
         <div className="flex justify-between items-center p-2 border-b">
           <FileManager onFileLoad={setMarkdown} content={markdown} />
-          <ThemeToggle />
+          <div className="flex gap-2">
+            <ExportTools targetId="preview" />
+            <ThemeToggle />
+          </div>
         </div>
         <div className="flex flex-1 overflow-hidden">
           <div className="w-1/2 p-4">
@@ -86,7 +90,7 @@ function App() {
               }}
             />
           </div>
-          <div className="w-1/2 p-4 overflow-auto prose prose-invert max-w-none bg-muted">
+          <div id="preview" className="w-1/2 p-4 overflow-auto prose prose-invert max-w-none bg-muted">
             <ReactMarkdown
               remarkPlugins={[remarkGfm]}
               rehypePlugins={[rehypeKatex, rehypeHighlight]}
