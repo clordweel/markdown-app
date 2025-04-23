@@ -3,6 +3,7 @@ import "./App.css";
 import Editor from '@monaco-editor/react'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
+import remarkMath from 'remark-math'
 import rehypeKatex from 'rehype-katex'
 import rehypeHighlight from 'rehype-highlight'
 import { MermaidRenderer } from './components/MermaidRenderer'
@@ -92,7 +93,7 @@ function App() {
           </div>
           <div id="preview" className="w-1/2 p-4 overflow-auto prose prose-invert max-w-none bg-muted">
             <ReactMarkdown
-              remarkPlugins={[remarkGfm]}
+              remarkPlugins={[remarkGfm, remarkMath]}
               rehypePlugins={[rehypeKatex, rehypeHighlight]}
               components={components}
             >
