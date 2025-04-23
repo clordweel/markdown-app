@@ -47,7 +47,7 @@ $$x = {-b \\pm \\sqrt{b^2-4ac} \\over 2a}$$
 
 function MarkdownEditor() {
   const [markdown, setMarkdown] = useState(DEFAULT_MARKDOWN);
-  const { theme, resolvedTheme } = useTheme();
+  const { resolvedTheme } = useTheme();
   const [activeTab, setActiveTab] = useState<"editor" | "preview">("editor");
 
   const components = {

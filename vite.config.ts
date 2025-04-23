@@ -35,4 +35,29 @@ export default defineConfig({
       ignored: ["**/src-tauri/**"],
     },
   },
+
+  build: {
+    chunkSizeWarningLimit: 1000, // 提高警告阈值到 1000kb
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'react-vendor': ['react', 'react-dom'],
+          'monaco-editor': ['@monaco-editor/react'],
+          'markdown-vendor': [
+            'react-markdown',
+            'remark-gfm',
+            'remark-math',
+            'rehype-katex',
+            'rehype-highlight'
+          ],
+          'ui-vendor': [
+            '@radix-ui/react-dropdown-menu',
+            '@radix-ui/react-tabs',
+            'next-themes',
+            'lucide-react'
+          ]
+        }
+      }
+    }
+  }
 });
