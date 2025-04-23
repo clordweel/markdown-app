@@ -5,19 +5,19 @@
 @layer base {
   :root {
     --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --foreground: 222 14% 16%;
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 222 14% 16%;
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-    --primary: 221.2 83.2% 53.3%;
+    --popover-foreground: 222 14% 16%;
+    --primary: 216 79% 51%;
     --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-    --muted: 210 40% 96.1%;
+    --secondary: 210 14% 93%;
+    --secondary-foreground: 222 14% 16%;
+    --muted: 210 14% 93%;
     --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 216 79% 51%;
+    --accent-foreground: 210 40% 98%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
     --border: 214.3 31.8% 91.4%;
@@ -27,25 +27,33 @@
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 217.2 91.2% 59.8%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --background: 222 14% 12%;
+    --foreground: 210 14% 93%;
+    --card: 222 14% 12%;
+    --card-foreground: 210 14% 93%;
+    --popover: 222 14% 12%;
+    --popover-foreground: 210 14% 93%;
+    --primary: 216 79% 51%;
+    --primary-foreground: 222 14% 12%;
+    --secondary: 217.2 20% 24%;
+    --secondary-foreground: 210 14% 93%;
+    --muted: 217.2 20% 24%;
+    --muted-foreground: 215 14% 65%;
+    --accent: 216 79% 51%;
+    --accent-foreground: 210 14% 93%;
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 224.3 76.3% 48%;
+    --destructive-foreground: 210 14% 93%;
+    --border: 217.2 20% 24%;
+    --input: 217.2 20% 24%;
+    --ring: 216 79% 51%;
+  }
+
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
   }
 }
 
@@ -66,22 +74,21 @@ body {
 }
 
 .prose pre {
-  background-color: hsl(var(--muted));
+  @apply bg-muted;
   padding: 16px;
   border-radius: 6px;
   overflow-x: auto;
 }
 
 .prose code {
-  background-color: hsl(var(--muted));
+  @apply bg-muted text-foreground;
   padding: 0.2em 0.4em;
   border-radius: 3px;
   font-size: 85%;
-  color: hsl(var(--foreground));
 }
 
 .prose {
-  color: hsl(var(--foreground));
+  @apply text-foreground;
 }
 
 .prose h1,
@@ -90,25 +97,23 @@ body {
 .prose h4,
 .prose h5,
 .prose h6 {
-  color: hsl(var(--foreground));
+  @apply text-foreground;
 }
 
 .prose strong {
-  color: hsl(var(--foreground));
+  @apply text-foreground;
 }
 
 .prose a {
-  color: hsl(var(--primary));
-  text-decoration: underline;
+  @apply text-primary underline;
 }
 
 .prose blockquote {
-  border-left-color: hsl(var(--border));
-  color: hsl(var(--muted-foreground));
+  @apply border-l-border text-muted-foreground;
 }
 
 .prose hr {
-  border-color: hsl(var(--border));
+  @apply border-border;
 }
 
 .prose table {
@@ -117,21 +122,15 @@ body {
 }
 
 .prose th {
-  background-color: hsl(var(--muted));
-  color: hsl(var(--foreground));
-  font-weight: 600;
-  text-align: left;
-  padding: 0.5rem;
-  border: 1px solid hsl(var(--border));
+  @apply bg-muted text-foreground font-semibold text-left p-2 border border-border;
 }
 
 .prose td {
-  padding: 0.5rem;
-  border: 1px solid hsl(var(--border));
+  @apply p-2 border border-border;
 }
 
 .prose tr:nth-child(even) {
-  background-color: hsl(var(--muted));
+  @apply bg-muted;
 }
 
 .katex-display {
@@ -140,7 +139,14 @@ body {
 }
 
 .katex {
-  color: hsl(var(--foreground));
+  @apply text-foreground;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: 0.75s;
 }
 
 .logo.vite:hover {
@@ -151,29 +157,16 @@ body {
   filter: drop-shadow(0 0 2em #61dafb);
 }
 
-.container {
-  margin: 0;
-  padding-top: 10vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: center;
-}
-
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: 0.75s;
-}
-
 .logo.tauri:hover {
   filter: drop-shadow(0 0 2em #24c8db);
 }
 
 .row {
-  display: flex;
-  justify-content: center;
+  @apply flex justify-center;
+}
+
+.container {
+  @apply m-0 pt-[10vh] flex flex-col justify-center text-center;
 }
 
 a {

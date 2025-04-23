@@ -91,7 +91,7 @@ function MarkdownEditor() {
             }}
           />
         </div>
-        <div id="preview" className="w-1/2 p-4 overflow-auto prose dark:prose-invert max-w-none bg-muted">
+        <div id="preview" className="w-1/2 p-4 overflow-auto prose dark:prose-invert max-w-none bg-background border-l border-border">
           <ReactMarkdown
             remarkPlugins={[remarkGfm, remarkMath]}
             rehypePlugins={[rehypeKatex, rehypeHighlight]}
