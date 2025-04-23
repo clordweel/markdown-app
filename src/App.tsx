@@ -8,7 +8,7 @@ import rehypeKatex from 'rehype-katex'
 import rehypeHighlight from 'rehype-highlight'
 import { MermaidRenderer } from './components/MermaidRenderer'
 import { FileManager } from './components/FileManager'
-import { ThemeProvider } from 'next-themes'
+import { ThemeProvider, useTheme } from 'next-themes'
 import { ThemeToggle } from './components/ThemeToggle'
 import { ExportTools } from './components/ExportTools'
 import 'katex/dist/katex.min.css'
@@ -43,8 +43,9 @@ function hello(name: string): string {
 $$x = {-b \\pm \\sqrt{b^2-4ac} \\over 2a}$$
 `;
 
-function App() {
+function MarkdownEditor() {
   const [markdown, setMarkdown] = useState(DEFAULT_MARKDOWN);
+  const { theme, resolvedTheme } = useTheme();
 
   const components = {
     code({ node, inline, className, children, ...props }: any) {
@@ -64,44 +65,50 @@ function App() {
   };
 
   return (
-    <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-      <div className="flex flex-col h-screen bg-background text-foreground">
-        <div className="flex justify-between items-center p-2 border-b">
-          <FileManager onFileLoad={setMarkdown} content={markdown} />
-          <div className="flex gap-2">
-            <ExportTools targetId="preview" />
-            <ThemeToggle />
-          </div>
-        </div>
-        <div className="flex flex-1 overflow-hidden">
-          <div className="w-1/2 p-4">
-            <Editor
-              height="100%"
-              defaultLanguage="markdown"
-              value={markdown}
-              onChange={(value) => setMarkdown(value || '')}
-              theme="vs-dark"
-              options={{
-                minimap: { enabled: false },
-                fontSize: 14,
-                lineNumbers: 'on',
-                wordWrap: 'on',
-                automaticLayout: true,
-                scrollBeyondLastLine: false,
-              }}
-            />
-          </div>
-          <div id="preview" className="w-1/2 p-4 overflow-auto prose prose-invert max-w-none bg-muted">
-            <ReactMarkdown
-              remarkPlugins={[remarkGfm, remarkMath]}
-              rehypePlugins={[rehypeKatex, rehypeHighlight]}
-              components={components}
-            >
-              {markdown}
-            </ReactMarkdown>
-          </div>
+    <div className="flex flex-col h-screen bg-background text-foreground">
+      <div className="flex justify-between items-center p-2 border-b">
+        <FileManager onFileLoad={setMarkdown} content={markdown} />
+        <div className="flex gap-2">
+          <ExportTools targetId="preview" />
+          <ThemeToggle />
         </div>
       </div>
+      <div className="flex flex-1 overflow-hidden">
+        <div className="w-1/2 p-4">
+          <Editor
+            height="100%"
+            defaultLanguage="markdown"
+            value={markdown}
+            onChange={(value) => setMarkdown(value || '')}
+            theme={resolvedTheme === 'dark' ? 'vs-dark' : 'light'}
+            options={{
+              minimap: { enabled: false },
+              fontSize: 14,
+              lineNumbers: 'on',
+              wordWrap: 'on',
+              automaticLayout: true,
+              scrollBeyondLastLine: false,
+            }}
+          />
+        </div>
+        <div id="preview" className="w-1/2 p-4 overflow-auto prose dark:prose-invert max-w-none bg-muted">
+          <ReactMarkdown
+            remarkPlugins={[remarkGfm, remarkMath]}
+            rehypePlugins={[rehypeKatex, rehypeHighlight]}
+            components={components}
+          >
+            {markdown}
+          </ReactMarkdown>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+      <MarkdownEditor />
     </ThemeProvider>
   );
 }

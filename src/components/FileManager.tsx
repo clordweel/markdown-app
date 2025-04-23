@@ -30,7 +30,7 @@ export function FileManager({ onFileLoad, content }: FileManagerProps) {
   };
 
   return (
-    <div className="flex gap-2 p-2 bg-gray-100 dark:bg-gray-800">
+    <div className="flex gap-2 p-2">
       <label className="px-3 py-1 text-sm bg-blue-500 text-white rounded hover:bg-blue-600 cursor-pointer">
         打开文件
         <input
