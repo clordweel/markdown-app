@@ -15,13 +15,16 @@ export function ThemeToggle() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" size="default" className="relative w-[100px]">
-          <div className="flex items-center justify-center gap-2">
-            <div className="relative w-[1.2rem] h-[1.2rem]">
-              <Sun className="h-[1.2rem] w-[1.2rem] absolute top-0 left-0 transition-all rotate-0 scale-100 dark:rotate-90 dark:scale-0" />
-              <Moon className="h-[1.2rem] w-[1.2rem] absolute top-0 left-0 transition-all rotate-90 scale-0 dark:rotate-0 dark:scale-100" />
+        <Button 
+          variant="outline" 
+          size="icon" 
+          className="relative h-10 w-10 p-0 rounded-full shadow-lg bg-background/90 backdrop-blur-sm border-2"
+        >
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="relative h-5 w-5">
+              <Sun className="absolute h-5 w-5 transition-all rotate-0 scale-100 dark:rotate-90 dark:scale-0" />
+              <Moon className="absolute h-5 w-5 transition-all rotate-90 scale-0 dark:rotate-0 dark:scale-100" />
             </div>
-            <span>主题</span>
           </div>
         </Button>
       </DropdownMenuTrigger>
