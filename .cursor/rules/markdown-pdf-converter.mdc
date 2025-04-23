@@ -1,0 +1,44 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Markdown转PDF应用开发规则
+
+## 技术栈规范
+- 前端
+  - 框架: React 19
+  - 样式: Tailwind CSS
+  - 构建: Vite
+  - 语言: TypeScript
+- 后端
+  - 语言: Rust
+  - 框架: Actix Web
+- 打包
+  - 框架: Tauri 2.0
+
+## 兼容性要求
+- 操作系统
+  - Windows 10+
+- 文件格式
+  - .md
+  - .markdown
+
+## 开发规范
+- 前端
+  - 代码检查: 使用ESLint和Prettier
+  - 组件开发: 遵循React最佳实践
+  - 类型系统: 使用TypeScript类型定义
+- 后端
+  - 代码风格: 遵循Rust官方代码风格指南
+  - 代码质量: 使用Clippy进行代码检查
+  - 测试要求: 编写单元测试和集成测试
+- 版本控制
+  - 工作流: Feature Branch工作流
+  - 提交规范: 遵循约定式提交规范
+
+## 文档规范
+- 代码注释: 必须清晰明了
+- API文档: 必须编写API文档
+- 用户指南: 必须提供用户指南
+- 文档同步: 保持文档与代码同步更新
