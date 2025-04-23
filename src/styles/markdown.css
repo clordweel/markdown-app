@@ -1,0 +1,124 @@
+/* 基础样式 */
+.markdown-preview {
+  @apply prose dark:prose-invert max-w-none;
+}
+
+/* 有序列表样式 */
+.markdown-preview ol {
+  @apply list-decimal list-outside ml-6 my-6;
+  counter-reset: list-counter;
+}
+
+.markdown-preview ol > li {
+  @apply pl-2 mb-2 relative;
+  counter-increment: list-counter;
+}
+
+/* 无序列表样式 */
+.markdown-preview ul {
+  @apply list-disc list-outside ml-6 my-6;
+}
+
+.markdown-preview ul > li {
+  @apply pl-2 mb-2 relative;
+}
+
+/* 代码块样式 */
+.markdown-preview pre {
+  @apply bg-muted p-4 rounded-lg overflow-x-auto my-6;
+}
+
+/* 行内代码样式 */
+.markdown-preview code:not(pre code) {
+  @apply bg-muted px-1.5 py-0.5 rounded text-sm font-mono;
+}
+
+/* 标题样式 */
+.markdown-preview h1 {
+  @apply text-3xl font-bold mt-8 mb-4 pb-2 border-b border-border;
+}
+
+.markdown-preview h2 {
+  @apply text-2xl font-bold mt-6 mb-4 pb-1 border-b border-border;
+}
+
+.markdown-preview h3 {
+  @apply text-xl font-bold mt-4 mb-2;
+}
+
+/* 段落样式 */
+.markdown-preview p {
+  @apply my-4 leading-7;
+}
+
+/* 表格样式 */
+.markdown-preview table {
+  @apply w-full border-collapse my-6 bg-background;
+}
+
+.markdown-preview table * {
+  @apply border-border;
+}
+
+.markdown-preview tr {
+  @apply border-b border-border;
+}
+
+.markdown-preview th {
+  @apply bg-muted px-4 py-3 text-left align-middle font-semibold border;
+}
+
+.markdown-preview td {
+  @apply px-4 py-3 align-middle border;
+}
+
+/* 引用块样式 */
+.markdown-preview blockquote {
+  @apply border-l-4 border-border pl-4 my-6 italic bg-muted/50 py-2 rounded-r;
+}
+
+/* 水平线样式 */
+.markdown-preview hr {
+  @apply my-8 border-border;
+}
+
+/* 链接样式 */
+.markdown-preview a {
+  @apply text-primary hover:underline;
+}
+
+/* 图片样式 */
+.markdown-preview img {
+  @apply max-w-full h-auto rounded-lg my-6;
+}
+
+/* 任务列表样式 */
+.markdown-preview input[type="checkbox"] {
+  @apply mr-2 align-middle;
+}
+
+/* 数学公式样式 */
+.markdown-preview .math {
+  @apply overflow-x-auto py-2;
+}
+
+/* 代码高亮样式 */
+.markdown-preview pre code {
+  @apply font-mono text-sm leading-relaxed;
+}
+
+/* 确保表格内容垂直居中 */
+.markdown-preview td,
+.markdown-preview th {
+  @apply align-middle;
+}
+
+/* 表格行交替背景色 */
+.markdown-preview tr:nth-child(even) {
+  @apply bg-muted/5;
+}
+
+/* 表格悬停效果 */
+.markdown-preview tr:hover {
+  @apply bg-muted/10;
+} 

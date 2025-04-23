@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./App.css";
+import "./styles/markdown.css";
 import Editor from '@monaco-editor/react'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
@@ -112,7 +113,7 @@ function MarkdownEditor() {
               <ExportTools targetId="preview" />
             </div>
             <div id="preview" className="flex-1 min-h-0 overflow-auto p-4 bg-background">
-              <div className="prose dark:prose-invert max-w-none">
+              <div className="markdown-preview">
                 <ReactMarkdown
                   remarkPlugins={[remarkGfm, remarkMath]}
                   rehypePlugins={[rehypeKatex, rehypeHighlight]}
@@ -156,7 +157,7 @@ function MarkdownEditor() {
             <ExportTools targetId="preview" />
           </div>
           <div id="preview" className="flex-1 min-h-0 overflow-auto p-4 bg-background">
-            <div className="prose dark:prose-invert max-w-none">
+            <div className="markdown-preview">
               <ReactMarkdown
                 remarkPlugins={[remarkGfm, remarkMath]}
                 rehypePlugins={[rehypeKatex, rehypeHighlight]}
