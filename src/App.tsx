@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import "./App.css";
 import "./styles/markdown.css";
 import Editor from '@monaco-editor/react'
@@ -50,6 +50,38 @@ function MarkdownEditor() {
   const [markdown, setMarkdown] = useState(DEFAULT_MARKDOWN);
   const { resolvedTheme } = useTheme();
   const [activeTab, setActiveTab] = useState<"editor" | "preview">("editor");
+  const [editorWidth, setEditorWidth] = useState(50); // 初始宽度百分比
+  const isDragging = useRef(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const handleMouseDown = (e: React.MouseEvent) => {
+    isDragging.current = true;
+    e.preventDefault();
+  };
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!isDragging.current || !containerRef.current) return;
+
+      const containerWidth = containerRef.current.offsetWidth;
+      const newWidth = (e.clientX / containerWidth) * 100;
+      // 限制最小和最大宽度
+      const clampedWidth = Math.max(30, Math.min(70, newWidth));
+      setEditorWidth(clampedWidth);
+    };
+
+    const handleMouseUp = () => {
+      isDragging.current = false;
+    };
+
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseup', handleMouseUp);
+
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
+    };
+  }, []);
 
   const components = {
     code({ node, inline, className, children, ...props }: any) {
@@ -128,8 +160,8 @@ function MarkdownEditor() {
       </div>
 
       {/* 桌面端视图 */}
-      <div className="hidden md:flex md:h-screen">
-        <div className="w-1/2 flex flex-col border-r">
+      <div className="hidden md:flex md:h-screen" ref={containerRef}>
+        <div className="flex flex-col border-r" style={{ width: `${editorWidth}%` }}>
           <div className="shrink-0 flex justify-between items-center h-12 px-4 border-b bg-background">
             <FileManager onFileLoad={setMarkdown} content={markdown} />
           </div>
@@ -151,7 +183,11 @@ function MarkdownEditor() {
             />
           </div>
         </div>
-        <div className="w-1/2 flex flex-col">
+        <div 
+          className="w-1 cursor-col-resize bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 transition-colors"
+          onMouseDown={handleMouseDown}
+        />
+        <div className="flex flex-col" style={{ width: `${100 - editorWidth}%` }}>
           <div className="shrink-0 flex justify-between items-center h-12 px-4 border-b bg-background">
             <div className="text-sm font-medium">预览</div>
             <ExportTools targetId="preview" />
