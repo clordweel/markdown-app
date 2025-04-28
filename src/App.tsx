@@ -16,35 +16,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "./components/ui/tabs"
 import { Pencil, Eye } from "lucide-react"
 import 'katex/dist/katex.min.css'
 import 'highlight.js/styles/github-dark.css'
-
-const DEFAULT_MARKDOWN = `# Hello World
-
-这是一个Markdown编辑器。
-
-## Mermaid图表示例
-
-\`\`\`mermaid
-graph TD
-    A[开始] --> B{是否继续?}
-    B -->|是| C[处理]
-    C --> D[结束]
-    B -->|否| D
-\`\`\`
-
-## 代码示例
-
-\`\`\`typescript
-function hello(name: string): string {
-    return \`Hello, \${name}!\`;
-}
-\`\`\`
-
-## 数学公式示例
-
-当 $a \\ne 0$ 时，一元二次方程 $ax^2 + bx + c = 0$ 的解为：
-
-$$x = {-b \\pm \\sqrt{b^2-4ac} \\over 2a}$$
-`;
+import { DEFAULT_MARKDOWN } from './examples/default-content'
 
 function MarkdownEditor() {
   const [markdown, setMarkdown] = useState(DEFAULT_MARKDOWN);
